@@ -1,6 +1,7 @@
 import { Icon } from "../../../components/icons";
 import { MonthlySpending } from "../../../types";
 import { MONTHLY_SPENDING_DATA } from "../../../services";
+import styles from "./SpendingBarChart.module.css";
 
 export interface SpendingBarChartProps {
   data?: MonthlySpending[];
@@ -8,27 +9,27 @@ export interface SpendingBarChartProps {
 
 export function SpendingBarChart({ data = MONTHLY_SPENDING_DATA }: SpendingBarChartProps) {
   return (
-    <article className="dashboard-card spending-chart-card">
-      <div className="section-title">
+    <article className={styles.spendingChartCard}>
+      <div className={styles.sectionTitle}>
         <div>
           <h2>Monthly Expenses Overview</h2>
           <p>Total subscription spend by month</p>
         </div>
-        <button type="button">
+        <button type="button" className={styles.yearButton}>
           2026 <Icon name="chevron" />
         </button>
       </div>
 
-      <div className="bar-chart">
-        <div className="chart-scale" aria-hidden="true">
+      <div className={styles.barChart}>
+        <div className={styles.chartScale} aria-hidden="true">
           <span>2,000</span>
           <span>1,500</span>
           <span>1,000</span>
           <span>500</span>
           <span>0</span>
         </div>
-        <div className="chart-bars">
-          <div className="chart-grid-lines" aria-hidden="true">
+        <div className={styles.chartBars}>
+          <div className={styles.chartGridLines} aria-hidden="true">
             <i />
             <i />
             <i />
@@ -36,9 +37,9 @@ export function SpendingBarChart({ data = MONTHLY_SPENDING_DATA }: SpendingBarCh
             <i />
           </div>
           {data.map((month) => (
-            <div className="bar-column" key={month.label}>
+            <div className={styles.barColumn} key={month.label}>
               <div
-                className={`expense-bar ${month.peak ? "peak" : ""}`}
+                className={`${styles.expenseBar} ${month.peak ? styles.peak : ""}`}
                 style={{ height: `${month.value}%` }}
               >
                 {month.peak && <span>{month.label === "Sep" ? "1,840" : "1,660"}</span>}
@@ -48,12 +49,12 @@ export function SpendingBarChart({ data = MONTHLY_SPENDING_DATA }: SpendingBarCh
           ))}
         </div>
       </div>
-      <div className="chart-insight">
+      <div className={styles.chartInsight}>
         <span>
-          <i className="standard" /> Monthly spend
+          <i className={styles.standardDot} /> Monthly spend
         </span>
         <span>
-          <i className="peak" /> Peak month
+          <i className={styles.peakDot} /> Peak month
         </span>
         <p>
           <strong>September</strong> was your highest-spending month.

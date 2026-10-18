@@ -8,13 +8,7 @@ import prettier from "eslint-config-prettier";
 
 export default tseslint.config(
   {
-    ignores: [
-      "dist/**",
-      "node_modules/**",
-      "coverage/**",
-      "cypress/**",
-      "cypress.config.ts",
-    ],
+    ignores: ["dist/**", "node_modules/**", "coverage/**", "cypress/**", "cypress.config.ts"],
   },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
@@ -40,10 +34,7 @@ export default tseslint.config(
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@typescript-eslint/no-unused-vars": [
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },

@@ -3,6 +3,7 @@ import { Icon } from "../../../components/icons";
 import { ServiceSavings } from "../../../types";
 import { SAVINGS_SERVICES } from "../../../services";
 import { calculateSavings, formatNumber } from "../../../utils";
+import styles from "./SavingsSimulator.module.css";
 
 export interface SavingsSimulatorProps {
   services?: ServiceSavings[];
@@ -17,15 +18,15 @@ export function SavingsSimulator({ services = SAVINGS_SERVICES }: SavingsSimulat
 
   return (
     <section
-      className={`savings-calculator ${simulated ? "simulated" : ""}`}
+      className={`${styles.savingsCalculator} ${simulated ? styles.simulated : ""}`}
       data-testid="savings-calculator"
     >
-      <div className="calculator-intro">
-        <span className="calculator-icon">
+      <div className={styles.calculatorIntro}>
+        <span className={styles.calculatorIcon}>
           <Icon name="spark" />
         </span>
         <div>
-          <span className="calculator-label">WHAT-IF SCENARIO</span>
+          <span className={styles.calculatorLabel}>WHAT-IF SCENARIO</span>
           <h2>
             Savings Calculator <em>Gamification</em>
           </h2>
@@ -33,10 +34,10 @@ export function SavingsSimulator({ services = SAVINGS_SERVICES }: SavingsSimulat
         </div>
       </div>
 
-      <div className="calculator-controls">
+      <div className={styles.calculatorControls}>
         <label htmlFor="service-select">Subscription</label>
-        <div className="service-select-wrap">
-          <span className="service-logo netflix">{selectedService.name.charAt(0)}</span>
+        <div className={styles.serviceSelectWrap}>
+          <span className={styles.serviceLogo}>{selectedService.name.charAt(0)}</span>
           <select
             id="service-select"
             value={selectedService.name}
@@ -57,7 +58,7 @@ export function SavingsSimulator({ services = SAVINGS_SERVICES }: SavingsSimulat
         </div>
       </div>
 
-      <div className="outcome-grid">
+      <div className={styles.outcomeGrid}>
         <article>
           <span>1 YEAR SAVINGS</span>
           <strong>
@@ -75,7 +76,7 @@ export function SavingsSimulator({ services = SAVINGS_SERVICES }: SavingsSimulat
       </div>
 
       <button
-        className="simulate-button"
+        className={styles.simulateButton}
         type="button"
         onClick={() => setSimulated((value) => !value)}
         data-testid="simulate-btn"

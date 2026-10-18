@@ -1,5 +1,6 @@
 import { Icon } from "../../../components/icons";
 import { formatNumber } from "../../../utils";
+import styles from "./SummaryGrid.module.css";
 
 export interface SummaryGridProps {
   monthlyTotal: number;
@@ -9,10 +10,10 @@ export interface SummaryGridProps {
 
 export function SummaryGrid({ monthlyTotal, yearlyTotal, activeCount }: SummaryGridProps) {
   return (
-    <section className="summary-grid" aria-label="Expense summary" data-testid="summary-grid">
-      <article className="summary-card" data-testid="metric-monthly">
-        <div className="card-label">
-          <span className="metric-icon indigo">
+    <section className={styles.summaryGrid} aria-label="Expense summary" data-testid="summary-grid">
+      <article className={styles.summaryCard} data-testid="metric-monthly">
+        <div className={styles.cardLabel}>
+          <span className={`${styles.metricIcon} ${styles.indigo}`}>
             <Icon name="wallet" />
           </span>
           <p>Monthly Expenses</p>
@@ -23,15 +24,15 @@ export function SummaryGrid({ monthlyTotal, yearlyTotal, activeCount }: SummaryG
         <h2>
           {formatNumber(monthlyTotal)} <span>UAH</span>
         </h2>
-        <div className="metric-note positive">
+        <div className={`${styles.metricNote} ${styles.positive}`}>
           <span>↗</span> +5% <em>vs last month</em>
         </div>
-        <div className="metric-glow indigo" />
+        <div className={`${styles.metricGlow} ${styles.indigo}`} />
       </article>
 
-      <article className="summary-card" data-testid="metric-yearly">
-        <div className="card-label">
-          <span className="metric-icon teal">
+      <article className={styles.summaryCard} data-testid="metric-yearly">
+        <div className={styles.cardLabel}>
+          <span className={`${styles.metricIcon} ${styles.teal}`}>
             <Icon name="spark" />
           </span>
           <p>Yearly Expenses</p>
@@ -42,28 +43,31 @@ export function SummaryGrid({ monthlyTotal, yearlyTotal, activeCount }: SummaryG
         <h2>
           {formatNumber(yearlyTotal)} <span>UAH</span>
         </h2>
-        <div className="metric-note">
+        <div className={styles.metricNote}>
           <span>{activeCount}</span> active subscriptions
         </div>
-        <div className="metric-glow teal" />
+        <div className={`${styles.metricGlow} ${styles.teal}`} />
       </article>
 
-      <article className="summary-card upcoming-card" data-testid="metric-upcoming">
-        <div className="card-label">
-          <span className="metric-icon amber">
+      <article
+        className={`${styles.summaryCard} ${styles.upcomingCard}`}
+        data-testid="metric-upcoming"
+      >
+        <div className={styles.cardLabel}>
+          <span className={`${styles.metricIcon} ${styles.amber}`}>
             <Icon name="calendar" />
           </span>
           <p>Upcoming Payment</p>
-          <span className="urgent-badge">Due soon</span>
+          <span className={styles.urgentBadge}>Due soon</span>
         </div>
-        <div className="upcoming-value">
-          <span className="service-logo netflix">N</span>
+        <div className={styles.upcomingValue}>
+          <span className={`${styles.serviceLogo} ${styles.netflix}`}>N</span>
           <div>
             <h2>Netflix</h2>
             <p>Tomorrow · 200 UAH</p>
           </div>
         </div>
-        <div className="metric-glow amber" />
+        <div className={`${styles.metricGlow} ${styles.amber}`} />
       </article>
     </section>
   );

@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import styles from "./NextChargesList.module.css";
 
 export interface ChargeItem {
   name: string;
@@ -30,30 +31,34 @@ const DEFAULT_CHARGES: ChargeItem[] = [
 
 export function NextChargesList({ charges = DEFAULT_CHARGES }: { charges?: ChargeItem[] }) {
   return (
-    <article className="dashboard-card charges-card" data-testid="charges-card">
-      <div className="section-title">
+    <article className={styles.chargesCard} data-testid="charges-card">
+      <div className={styles.sectionTitle}>
         <div>
           <h2>Next Charges</h2>
           <p>Your upcoming payments</p>
         </div>
         <Link to="/calendar">View all →</Link>
       </div>
-      <div className="charge-list">
-        {charges.map((charge) => (
-          <div className="charge-row" key={charge.name}>
-            <span className={`service-logo ${charge.tone}`}>{charge.logo}</span>
-            <div>
-              <strong>{charge.name}</strong>
-              <small>{charge.category}</small>
+      <div className={styles.chargeList}>
+        {charges.map((charge) => {
+          const toneClass = styles[charge.tone] || "";
+
+          return (
+            <div className={styles.chargeRow} key={charge.name}>
+              <span className={`${styles.serviceLogo} ${toneClass}`}>{charge.logo}</span>
+              <div className={styles.chargeInfo}>
+                <strong>{charge.name}</strong>
+                <small>{charge.category}</small>
+              </div>
+              <div className={styles.chargeDate}>
+                <strong>{charge.price}</strong>
+                <small className={charge.dueText === "Tomorrow" ? styles.tomorrow : ""}>
+                  {charge.dueText}
+                </small>
+              </div>
             </div>
-            <div className="charge-date">
-              <strong>{charge.price}</strong>
-              <small className={charge.dueText === "Tomorrow" ? "tomorrow" : ""}>
-                {charge.dueText}
-              </small>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </article>
   );

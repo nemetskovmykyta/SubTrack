@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { Icon } from "../../icons";
 import { useClickOutside } from "../../../hooks";
 import { Modal } from "../../ui";
+import styles from "./ProfileDropdown.module.css";
 
 export interface ProfileDropdownProps {
   name?: string;
@@ -36,16 +37,16 @@ export function ProfileDropdown({
 
   return (
     <>
-      <div className="profile-menu-wrap" ref={menuRef}>
+      <div className={styles.profileMenuWrap} ref={menuRef}>
         <button
-          className={`profile-button ${profileOpen ? "open" : ""}`}
+          className={`${styles.profileButton} ${profileOpen ? styles.open : ""}`}
           type="button"
           aria-expanded={profileOpen}
           aria-haspopup="menu"
           onClick={() => setProfileOpen((prev) => !prev)}
         >
-          <span className="avatar">{initials}</span>
-          <span className="profile-copy">
+          <span className={styles.avatar}>{initials}</span>
+          <span className={styles.profileCopy}>
             <strong>{name}</strong>
             <small>Personal account</small>
           </span>
@@ -53,16 +54,16 @@ export function ProfileDropdown({
         </button>
 
         {profileOpen && (
-          <div className="profile-dropdown" role="menu">
-            <div className="profile-dropdown-header">
-              <span className="avatar">{initials}</span>
+          <div className={styles.profileDropdown} role="menu">
+            <div className={styles.profileDropdownHeader}>
+              <span className={styles.avatar}>{initials}</span>
               <div>
                 <strong>{name}</strong>
                 <small>{email}</small>
               </div>
-              <span className="pro-plan-badge">{plan}</span>
+              <span className={styles.proPlanBadge}>{plan}</span>
             </div>
-            <div className="profile-menu-items">
+            <div className={styles.profileMenuItems}>
               <Link role="menuitem" to="/settings" onClick={() => setProfileOpen(false)}>
                 <span>
                   <Icon name="user" />
@@ -82,7 +83,7 @@ export function ProfileDropdown({
                 Help & Support
               </a>
             </div>
-            <div className="profile-logout-wrap">
+            <div className={styles.profileLogoutWrap}>
               <button role="menuitem" type="button" onClick={requestLogout}>
                 <span>
                   <Icon name="logout" />
@@ -100,12 +101,18 @@ export function ProfileDropdown({
         title="Log Out of SubTrack?"
         icon={<Icon name="logout" />}
       >
-        <p>Are you sure you want to log out of your account?</p>
-        <div>
-          <button className="logout-cancel" type="button" onClick={() => setLogoutOpen(false)}>
+        <p style={{ color: "var(--color-text-muted)", fontSize: "14px", lineHeight: "1.5" }}>
+          Are you sure you want to log out of your account?
+        </p>
+        <div className={styles.dialogActions}>
+          <button
+            className={styles.logoutCancel}
+            type="button"
+            onClick={() => setLogoutOpen(false)}
+          >
             Cancel
           </button>
-          <button className="logout-confirm" type="button" onClick={confirmLogout}>
+          <button className={styles.logoutConfirm} type="button" onClick={confirmLogout}>
             Log Out
           </button>
         </div>

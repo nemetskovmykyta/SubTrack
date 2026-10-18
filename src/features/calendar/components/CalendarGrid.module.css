@@ -1,0 +1,243 @@
+.calendarCard {
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-card);
+  backdrop-filter: blur(16px);
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.4);
+}
+
+.calendarToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.monthSwitcher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.monthSwitcher button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  transition: all var(--transition-fast);
+}
+
+.monthSwitcher button:hover {
+  border-color: var(--border-focus);
+  color: var(--color-text-primary);
+}
+
+.monthSwitcher strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.viewToggle {
+  display: flex;
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.viewToggle button {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-dim);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.viewToggle button:hover {
+  color: var(--color-text-primary);
+}
+
+.viewToggle button.active {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.weekday {
+  padding: 8px;
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.calendarDay {
+  position: relative;
+  min-height: 84px;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.calendarDay:hover {
+  border-color: var(--border-medium);
+  background: rgba(30, 41, 59, 0.4);
+}
+
+.calendarDay.outside {
+  opacity: 0.35;
+}
+
+.calendarDay.today {
+  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.dayNumber {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.todayLabel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 9px;
+  font-weight: 750;
+  color: #a5b4fc;
+  letter-spacing: 0.06em;
+}
+
+.paymentBadge {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 7px;
+  border-radius: var(--radius-sm);
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid var(--border-medium);
+}
+
+.paymentBadge.highlighted {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.serviceLogo {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.netflix {
+  background: #e50914;
+  color: white;
+}
+.spotify {
+  background: #1db954;
+  color: white;
+}
+.sportlife {
+  background: #f97316;
+  color: white;
+}
+.icloud {
+  background: #3b82f6;
+  color: white;
+}
+.patreon {
+  background: #f43f5e;
+  color: white;
+}
+
+.paymentBadge strong {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paymentBadge small {
+  display: block;
+  font-size: 10px;
+  color: var(--color-text-dim);
+}
+
+/* List View */
+.calendarListView {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendarListView article {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.calendarListView article strong {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.calendarListView article small {
+  display: block;
+  color: var(--color-text-dim);
+  font-size: 12px;
+}
+
+.calendarListView article b {
+  margin-left: auto;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .calendarGrid {
+    gap: 4px;
+  }
+  .calendarDay {
+    min-height: 60px;
+    padding: 4px;
+  }
+}

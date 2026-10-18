@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Icon } from "../../icons";
 import { Logo } from "../Logo/Logo";
 import { ProfileDropdown } from "../ProfileDropdown/ProfileDropdown";
+import styles from "./DashboardNav.module.css";
 
 export interface DashboardNavProps {
   active: "dashboard" | "analytics" | "calendar" | "settings";
@@ -10,45 +11,45 @@ export interface DashboardNavProps {
 
 export function DashboardNav({ active, onAddSubscription }: DashboardNavProps) {
   return (
-    <header className="dashboard-nav" data-testid="dashboard-nav">
+    <header className={styles.dashboardNav} data-testid="dashboard-nav">
       <Logo />
-      <nav aria-label="Primary navigation">
+      <nav className={styles.navLinks} aria-label="Primary navigation">
         <Link
-          className={active === "dashboard" ? "active" : ""}
+          className={`${styles.navLink} ${active === "dashboard" ? styles.active : ""}`}
           to="/dashboard"
           data-testid="nav-dashboard"
         >
           Dashboard
         </Link>
         <Link
-          className={active === "analytics" ? "active" : ""}
+          className={`${styles.navLink} ${active === "analytics" ? styles.active : ""}`}
           to="/analytics"
           data-testid="nav-analytics"
         >
           Analytics
         </Link>
         <Link
-          className={active === "calendar" ? "active" : ""}
+          className={`${styles.navLink} ${active === "calendar" ? styles.active : ""}`}
           to="/calendar"
           data-testid="nav-calendar"
         >
           Calendar
         </Link>
         <Link
-          className={active === "settings" ? "active" : ""}
+          className={`${styles.navLink} ${active === "settings" ? styles.active : ""}`}
           to="/settings"
           data-testid="nav-settings"
         >
           Settings
         </Link>
       </nav>
-      <div className="nav-actions">
-        <button className="notification-button" type="button" aria-label="Notifications">
+      <div className={styles.navActions}>
+        <button className={styles.notificationButton} type="button" aria-label="Notifications">
           <Icon name="bell" />
-          <span />
+          <span className={styles.notificationDot} />
         </button>
         <button
-          className="add-subscription"
+          className={styles.addSubscriptionBtn}
           type="button"
           onClick={onAddSubscription}
           data-testid="btn-add-subscription"

@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { Modal } from "../../../components/ui";
 import { Icon } from "../../../components/icons";
 import { IconName, Subscription, SubscriptionCategory } from "../../../types";
+import styles from "./AddSubscriptionModal.module.css";
 
 export interface AddSubscriptionModalProps {
   isOpen: boolean;
@@ -57,23 +58,14 @@ export function AddSubscriptionModal({ isOpen, onClose, onAdd }: AddSubscription
       title="Add New Subscription"
       icon={<Icon name="wallet" />}
     >
-      <form
-        onSubmit={handleSubmit}
-        className="add-sub-form text-left"
-        data-testid="add-subscription-form"
-      >
-        {error && (
-          <div className="mb-4 text-xs text-rose-400 bg-rose-950/40 p-2 rounded border border-rose-800/40">
-            {error}
-          </div>
-        )}
-        <div className="mb-4">
-          <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">
-            Service Name
-          </label>
+      <form onSubmit={handleSubmit} className={styles.form} data-testid="add-subscription-form">
+        {error && <div className={styles.errorMessage}>{error}</div>}
+        <div className={styles.formGroup}>
+          <label htmlFor="sub-name">Service Name</label>
           <input
+            id="sub-name"
             type="text"
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
+            className={styles.inputField}
             placeholder="e.g. YouTube Premium"
             value={name}
             onChange={(e) => {
@@ -84,12 +76,11 @@ export function AddSubscriptionModal({ isOpen, onClose, onAdd }: AddSubscription
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">
-            Category
-          </label>
+        <div className={styles.formGroup}>
+          <label htmlFor="sub-category">Category</label>
           <select
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
+            id="sub-category"
+            className={styles.selectField}
             value={category}
             onChange={(e) => setCategory(e.target.value as SubscriptionCategory)}
             data-testid="select-sub-category"
@@ -103,15 +94,14 @@ export function AddSubscriptionModal({ isOpen, onClose, onAdd }: AddSubscription
           </select>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <div>
-            <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">
-              Price (UAH)
-            </label>
+        <div className={styles.row}>
+          <div className={styles.formGroup}>
+            <label htmlFor="sub-price">Price (UAH)</label>
             <input
+              id="sub-price"
               type="number"
               step="any"
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
+              className={styles.inputField}
               placeholder="150"
               value={price}
               onChange={(e) => {
@@ -121,12 +111,11 @@ export function AddSubscriptionModal({ isOpen, onClose, onAdd }: AddSubscription
               data-testid="input-sub-price"
             />
           </div>
-          <div>
-            <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">
-              Cycle
-            </label>
+          <div className={styles.formGroup}>
+            <label htmlFor="sub-cycle">Cycle</label>
             <select
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
+              id="sub-cycle"
+              className={styles.selectField}
               value={billingCycle}
               onChange={(e) => setBillingCycle(e.target.value as "monthly" | "yearly")}
               data-testid="select-sub-cycle"
@@ -137,15 +126,11 @@ export function AddSubscriptionModal({ isOpen, onClose, onAdd }: AddSubscription
           </div>
         </div>
 
-        <div className="flex gap-3 justify-end pt-2">
-          <button type="button" className="logout-cancel" onClick={onClose}>
+        <div className={styles.actions}>
+          <button type="button" className={styles.cancelBtn} onClick={onClose}>
             Cancel
           </button>
-          <button
-            type="submit"
-            className="logout-confirm !bg-indigo-600 hover:!bg-indigo-500"
-            data-testid="btn-submit-subscription"
-          >
+          <button type="submit" className={styles.submitBtn} data-testid="btn-submit-subscription">
             Add Subscription
           </button>
         </div>

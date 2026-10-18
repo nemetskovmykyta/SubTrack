@@ -1,36 +1,23 @@
 import { FormEvent, useState } from "react";
-import { DashboardNav, Icon } from "./DashboardPage";
+import { DashboardNav } from "../components/layout";
+import { Icon } from "../components/icons";
+import { Toggle } from "../components/ui";
+import { IconName } from "../types";
+import styles from "./SettingsPage.module.css";
 
-const settingsNavigation = [
-  { label: "Profile & Account", icon: "user" as const, target: "profile" },
-  { label: "Preferences & Currency", icon: "sliders" as const, target: "preferences" },
-  { label: "Notifications & Reminders", icon: "bell" as const, target: "notifications" },
-  { label: "Security & Password", icon: "security" as const, target: "security" },
-  { label: "Integrations & Export", icon: "upload" as const, target: "integrations" },
-];
-
-function Toggle({
-  checked,
-  onChange,
-  label,
-}: {
-  checked: boolean;
-  onChange: () => void;
+interface SettingsNavItem {
   label: string;
-}) {
-  return (
-    <button
-      className={`settings-toggle ${checked ? "active" : ""}`}
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      aria-label={label}
-      onClick={onChange}
-    >
-      <span />
-    </button>
-  );
+  icon: IconName;
+  target: string;
 }
+
+const SETTINGS_NAVIGATION: SettingsNavItem[] = [
+  { label: "Profile & Account", icon: "user", target: "profile" },
+  { label: "Preferences & Currency", icon: "sliders", target: "preferences" },
+  { label: "Notifications & Reminders", icon: "bell", target: "notifications" },
+  { label: "Security & Password", icon: "security", target: "security" },
+  { label: "Integrations & Export", icon: "upload", target: "integrations" },
+];
 
 export default function SettingsPage() {
   const [activeSection, setActiveSection] = useState("profile");
@@ -41,7 +28,10 @@ export default function SettingsPage() {
 
   const goToSection = (target: string) => {
     setActiveSection(target);
-    document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(target)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   const saveSettings = (event: FormEvent<HTMLFormElement>) => {
@@ -51,18 +41,18 @@ export default function SettingsPage() {
   };
 
   return (
-    <main className="dashboard-shell settings-shell">
+    <main className={styles.settingsShell}>
       <DashboardNav active="settings" />
 
-      <div className="dashboard-content settings-content">
-        <div className="dashboard-heading settings-heading">
+      <div className={styles.settingsContent}>
+        <div className={styles.heading}>
           <div>
-            <p className="dash-eyebrow">PERSONALIZE SUBTRACK</p>
+            <span className={styles.eyebrow}>PERSONALIZE SUBTRACK</span>
             <h1>Account Settings</h1>
             <p>Manage your profile, preferences, and payment notifications.</p>
           </div>
-          <div className="settings-account-chip">
-            <span className="avatar">MN</span>
+          <div className={styles.accountChip}>
+            <span className={styles.avatar}>MN</span>
             <div>
               <strong>Mykyta Nemetskov</strong>
               <small>Personal account</small>
@@ -70,9 +60,9 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="settings-layout">
-          <aside className="dashboard-card settings-navigation">
-            <div className="settings-nav-heading">
+        <div className={styles.settingsLayout}>
+          <aside className={styles.navigationCard}>
+            <div className={styles.navHeading}>
               <span>
                 <Icon name="settings" />
               </span>
@@ -81,10 +71,12 @@ export default function SettingsPage() {
                 <small>Account preferences</small>
               </div>
             </div>
-            <nav aria-label="Settings categories">
-              {settingsNavigation.map((item) => (
+            <nav className={styles.navMenu} aria-label="Settings categories">
+              {SETTINGS_NAVIGATION.map((item) => (
                 <button
-                  className={activeSection === item.target ? "active" : ""}
+                  className={`${styles.navBtn} ${
+                    activeSection === item.target ? styles.active : ""
+                  }`}
                   type="button"
                   key={item.target}
                   onClick={() => goToSection(item.target)}
@@ -95,8 +87,8 @@ export default function SettingsPage() {
                 </button>
               ))}
             </nav>
-            <div className="settings-help">
-              <span>?</span>
+            <div className={styles.helpBox}>
+              <span className={styles.helpBadge}>?</span>
               <div>
                 <strong>Need help?</strong>
                 <small>Visit the support center</small>
@@ -104,10 +96,11 @@ export default function SettingsPage() {
             </div>
           </aside>
 
-          <form className="settings-form" onSubmit={saveSettings}>
-            <section className="dashboard-card settings-section" id="profile">
-              <div className="settings-section-heading">
-                <span className="metric-icon indigo">
+          <form className={styles.settingsForm} onSubmit={saveSettings}>
+            {/* Profile Section */}
+            <section className={styles.settingsSection} id="profile">
+              <div className={styles.sectionHeading}>
+                <span className={`${styles.metricIcon} ${styles.indigo}`}>
                   <Icon name="user" />
                 </span>
                 <div>
@@ -116,32 +109,33 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <div className="avatar-setting">
-                <span className="settings-avatar">MN</span>
-                <div>
+              <div className={styles.avatarSetting}>
+                <span className={styles.largeAvatar}>MN</span>
+                <div className={styles.avatarInfo}>
                   <strong>Mykyta Nemetskov</strong>
                   <small>JPG, GIF or PNG. Max size 2 MB.</small>
                 </div>
-                <button type="button">
+                <button type="button" className={styles.changeAvatarBtn}>
                   <Icon name="upload" /> Change Avatar
                 </button>
               </div>
 
-              <div className="settings-fields two-column">
-                <label>
+              <div className={styles.fieldsGrid}>
+                <label className={styles.formGroup}>
                   <span>Full Name</span>
                   <input type="text" defaultValue="Mykyta Nemetskov" />
                 </label>
-                <label>
+                <label className={styles.formGroup}>
                   <span>Email Address</span>
                   <input type="email" defaultValue="mykyta@example.com" />
                 </label>
               </div>
             </section>
 
-            <section className="dashboard-card settings-section" id="preferences">
-              <div className="settings-section-heading">
-                <span className="metric-icon blue">
+            {/* Preferences Section */}
+            <section className={styles.settingsSection} id="preferences">
+              <div className={styles.sectionHeading}>
+                <span className={`${styles.metricIcon} ${styles.blue}`}>
                   <Icon name="sliders" />
                 </span>
                 <div>
@@ -150,10 +144,10 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <div className="settings-fields two-column">
-                <label>
+              <div className={styles.fieldsGrid}>
+                <label className={styles.formGroup}>
                   <span>Primary Display Currency</span>
-                  <div className="settings-select">
+                  <div className={styles.selectWrap}>
                     <select defaultValue="UAH">
                       <option value="UAH">UAH (Ukrainian Hryvnia)</option>
                       <option value="USD">USD (US Dollar)</option>
@@ -162,9 +156,9 @@ export default function SettingsPage() {
                     <Icon name="chevron" />
                   </div>
                 </label>
-                <label>
+                <label className={styles.formGroup}>
                   <span>Language</span>
-                  <div className="settings-select">
+                  <div className={styles.selectWrap}>
                     <select defaultValue="UK-EN">
                       <option value="UK-EN">Ukrainian / English</option>
                       <option value="UK">Ukrainian</option>
@@ -175,24 +169,23 @@ export default function SettingsPage() {
                 </label>
               </div>
 
-              <div className="setting-toggle-row">
+              <div className={styles.toggleRow}>
                 <div>
                   <strong>Auto-convert foreign currencies</strong>
-                  <small>
-                    Convert USD and EUR subscriptions using the current NBU exchange rate.
-                  </small>
+                  <small>Convert USD and EUR subscriptions using current NBU exchange rates.</small>
                 </div>
                 <Toggle
                   checked={autoConvert}
-                  onChange={() => setAutoConvert((value) => !value)}
+                  onChange={() => setAutoConvert((v) => !v)}
                   label="Auto-convert foreign currencies"
                 />
               </div>
             </section>
 
-            <section className="dashboard-card settings-section" id="notifications">
-              <div className="settings-section-heading">
-                <span className="metric-icon amber">
+            {/* Notifications Section */}
+            <section className={styles.settingsSection} id="notifications">
+              <div className={styles.sectionHeading}>
+                <span className={`${styles.metricIcon} ${styles.amber}`}>
                   <Icon name="bell" />
                 </span>
                 <div>
@@ -201,61 +194,60 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <div className="notification-setting">
+              <div className={styles.toggleRow}>
                 <div>
                   <strong>Email reminders before upcoming payments</strong>
-                  <small>Receive a reminder at mykyta@example.com.</small>
+                  <small>Receive reminders at mykyta@example.com.</small>
                 </div>
                 <Toggle
                   checked={emailReminders}
-                  onChange={() => setEmailReminders((value) => !value)}
+                  onChange={() => setEmailReminders((v) => !v)}
                   label="Email payment reminders"
                 />
               </div>
 
-              <div className="settings-fields reminder-field">
-                <label>
-                  <span>Remind me</span>
-                  <div className="settings-select">
-                    <select defaultValue="1">
-                      <option value="1">1 day before payment</option>
-                      <option value="3">3 days before payment</option>
-                      <option value="7">7 days before payment</option>
-                    </select>
-                    <Icon name="chevron" />
-                  </div>
-                </label>
+              <div className={styles.formGroup} style={{ marginTop: "16px" }}>
+                <span>Remind me</span>
+                <div className={styles.selectWrap}>
+                  <select defaultValue="1">
+                    <option value="1">1 day before payment</option>
+                    <option value="3">3 days before payment</option>
+                    <option value="7">7 days before payment</option>
+                  </select>
+                  <Icon name="chevron" />
+                </div>
               </div>
 
-              <div className="notification-setting telegram-setting">
+              <div className={styles.toggleRow} style={{ marginTop: "16px" }}>
                 <div>
                   <strong>Telegram Bot notifications</strong>
                   <small>Instant reminders from @SubTrackBot.</small>
                 </div>
-                <span className="connected-badge">Connected</span>
+                <span className={styles.connectedBadge}>Connected</span>
                 <Toggle
                   checked={telegramNotifications}
-                  onChange={() => setTelegramNotifications((value) => !value)}
+                  onChange={() => setTelegramNotifications((v) => !v)}
                   label="Telegram Bot notifications"
                 />
               </div>
             </section>
 
-            <section className="settings-action-bar">
+            {/* Action Bar */}
+            <div className={styles.actionBar}>
               <p>
                 {saved
                   ? "Your changes have been saved."
                   : "Unsaved changes will be kept until you leave this page."}
               </p>
-              <div>
-                <button className="cancel-settings" type="reset">
+              <div className={styles.actionButtons}>
+                <button className={styles.cancelBtn} type="reset">
                   Cancel
                 </button>
-                <button className={`save-settings ${saved ? "saved" : ""}`} type="submit">
+                <button className={`${styles.saveBtn} ${saved ? styles.saved : ""}`} type="submit">
                   {saved ? "Changes Saved" : "Save Changes"}
                 </button>
               </div>
-            </section>
+            </div>
           </form>
         </div>
       </div>

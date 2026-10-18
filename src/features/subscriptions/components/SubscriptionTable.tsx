@@ -1,6 +1,7 @@
 import { Subscription } from "../../../types";
 import { Icon } from "../../../components/icons";
 import { SubscriptionRow } from "./SubscriptionRow";
+import styles from "./SubscriptionTable.module.css";
 
 export interface SubscriptionTableProps {
   subscriptions: Subscription[];
@@ -33,19 +34,17 @@ export function SubscriptionTable({
 }: SubscriptionTableProps) {
   return (
     <section
-      className="dashboard-card subscriptions-card"
+      className={styles.subscriptionsCard}
       id="subscriptions"
       data-testid="subscriptions-table-section"
     >
-      <div className="subscriptions-header">
-        <div className="section-title">
-          <div>
-            <h2>Active Subscriptions</h2>
-            <p>Manage your recurring payments</p>
-          </div>
+      <div className={styles.subscriptionsHeader}>
+        <div className={styles.sectionTitle}>
+          <h2>Active Subscriptions</h2>
+          <p>Manage your recurring payments</p>
         </div>
-        <div className="table-tools">
-          <label className="search-box">
+        <div className={styles.tableTools}>
+          <label className={styles.searchBox}>
             <Icon name="search" />
             <input
               type="search"
@@ -56,9 +55,8 @@ export function SubscriptionTable({
               data-testid="search-subscriptions-input"
             />
           </label>
-          <div className="category-select-wrap">
+          <div className={styles.categorySelectWrap}>
             <select
-              className="filter-button"
               value={selectedCategory}
               onChange={(e) => onCategoryChange(e.target.value)}
               aria-label="Filter by category"
@@ -74,8 +72,8 @@ export function SubscriptionTable({
         </div>
       </div>
 
-      <div className="subscription-table">
-        <div className="table-head">
+      <div className={styles.subscriptionTable}>
+        <div className={styles.tableHead}>
           <span>SUBSCRIPTION</span>
           <span>CATEGORY</span>
           <span>BILLING</span>
@@ -84,9 +82,7 @@ export function SubscriptionTable({
         </div>
 
         {subscriptions.length === 0 ? (
-          <div className="p-8 text-center text-slate-400">
-            No subscriptions found matching your query.
-          </div>
+          <div className={styles.emptyState}>No subscriptions found matching your query.</div>
         ) : (
           subscriptions.map((subscription) => (
             <SubscriptionRow
@@ -98,7 +94,7 @@ export function SubscriptionTable({
         )}
       </div>
 
-      <div className="table-footer">
+      <div className={styles.tableFooter}>
         <span>
           Showing {subscriptions.length} of {totalCount} subscriptions
         </span>

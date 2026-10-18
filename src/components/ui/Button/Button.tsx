@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
+import styles from "./Button.module.css";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "ghost";
@@ -12,13 +13,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     { className = "", variant = "primary", size = "md", icon, children, type = "button", ...props },
     ref
   ) => {
-    const classNames = ["subtrack-btn", `btn-${variant}`, `btn-${size}`, className]
+    const classNames = [styles.btn, styles[variant], styles[size], className]
       .filter(Boolean)
       .join(" ");
 
     return (
       <button ref={ref} type={type} className={classNames} {...props}>
-        {icon && <span className="btn-icon">{icon}</span>}
+        {icon && <span className={styles.icon}>{icon}</span>}
         {children}
       </button>
     );

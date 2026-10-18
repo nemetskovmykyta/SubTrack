@@ -1,6 +1,7 @@
 import { Subscription } from "../../../types";
 import { Icon } from "../../../components/icons";
 import { formatCurrency } from "../../../utils";
+import styles from "./SubscriptionRow.module.css";
 
 export interface SubscriptionRowProps {
   subscription: Subscription;
@@ -9,27 +10,29 @@ export interface SubscriptionRowProps {
 }
 
 export function SubscriptionRow({ subscription, onDelete, onEdit }: SubscriptionRowProps) {
+  const toneClass = styles[subscription.tone] || styles.indigo;
+
   return (
     <div
-      className="subscription-row"
+      className={styles.subscriptionRow}
       key={subscription.id}
       data-testid={`subscription-row-${subscription.id}`}
     >
-      <div className="subscription-name">
-        <span className={`subscription-icon ${subscription.tone}`}>
+      <div className={styles.subscriptionName}>
+        <span className={`${styles.subscriptionIcon} ${toneClass}`}>
           <Icon name={subscription.icon} />
         </span>
         <strong>{subscription.name}</strong>
       </div>
-      <span className="category-cell">{subscription.category}</span>
-      <div className="billing-cell">
+      <span className={styles.categoryCell}>{subscription.category}</span>
+      <div className={styles.billingCell}>
         <strong>{formatCurrency(subscription.price, subscription.currency)}</strong>
         <span>/ {subscription.billingCycle === "yearly" ? "yr" : "mo"}</span>
       </div>
-      <span className="active-badge">
+      <span className={styles.activeBadge}>
         <i /> {subscription.status === "active" ? "Active" : subscription.status}
       </span>
-      <div className="row-actions">
+      <div className={styles.rowActions}>
         <button
           type="button"
           aria-label={`Edit ${subscription.name}`}
