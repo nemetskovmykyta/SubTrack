@@ -1,0 +1,225 @@
+.profileMenuWrap {
+  position: relative;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  padding: 0 0 0 4px;
+  color: var(--color-text-muted);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profileButton svg {
+  width: 16px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--transition-fast);
+}
+
+.profileButton.open svg {
+  transform: rotate(180deg);
+}
+
+.avatar {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: var(--radius-full);
+  color: #c7d2fe;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+}
+
+.profileCopy {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCopy strong {
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.profileCopy small {
+  color: var(--color-text-dim);
+  font-size: 11px;
+}
+
+.profileDropdown {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 250px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  background: #111b31;
+  box-shadow:
+    0 16px 40px rgba(2, 6, 23, 0.6),
+    0 0 20px rgba(99, 102, 241, 0.08);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  animation: dropIn 160ms ease-out;
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profileDropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(30, 41, 59, 0.35);
+}
+
+.profileDropdownHeader strong {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.profileDropdownHeader small {
+  display: block;
+  color: var(--color-text-dim);
+  font-size: 11px;
+}
+
+.proPlanBadge {
+  margin-left: auto;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profileMenuItems {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.profileMenuItems a,
+.profileMenuItems button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+  width: 100%;
+  text-align: left;
+}
+
+.profileMenuItems a:hover,
+.profileMenuItems button:hover {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--color-text-primary);
+}
+
+.profileMenuItems svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.profileLogoutWrap {
+  padding: 6px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.profileLogoutWrap button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  color: #f87171;
+  font-size: 13px;
+  font-weight: 500;
+  width: 100%;
+  transition: background var(--transition-fast);
+}
+
+.profileLogoutWrap button:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.profileLogoutWrap svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.logoutCancel {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  background: rgba(30, 41, 59, 0.6);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+.logoutCancel:hover {
+  background: rgba(30, 41, 59, 0.9);
+  color: var(--color-text-primary);
+}
+
+.logoutConfirm {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  background: #e11d48;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+.logoutConfirm:hover {
+  background: #be123c;
+}

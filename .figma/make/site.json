@@ -1,0 +1,10 @@
+{
+  "description": "Track and manage your personal subscriptions effortlessly with secure login and intuitive account creation on a sleek, user-friendly platform.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
