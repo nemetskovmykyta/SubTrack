@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "../../icons";
 import { useClickOutside } from "../../../hooks";
 import { Modal } from "../../ui";
@@ -32,7 +32,7 @@ export function ProfileDropdown({
 
   const confirmLogout = () => {
     setLogoutOpen(false);
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -101,7 +101,13 @@ export function ProfileDropdown({
         title="Log Out of SubTrack?"
         icon={<Icon name="logout" />}
       >
-        <p style={{ color: "var(--color-text-muted)", fontSize: "14px", lineHeight: "1.5" }}>
+        <p
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "14px",
+            lineHeight: "1.5",
+          }}
+        >
           Are you sure you want to log out of your account?
         </p>
         <div className={styles.dialogActions}>

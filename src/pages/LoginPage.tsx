@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { BrandMark, MailIcon, LockIcon, EyeIcon, GoogleIcon, AppleIcon } from "../components/icons";
 import styles from "./LoginPage.module.css";
 
@@ -13,7 +13,6 @@ export default function LoginPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Lab 4 Part 1: basic layout & presentation without business logic
     navigate("/dashboard");
   };
 
