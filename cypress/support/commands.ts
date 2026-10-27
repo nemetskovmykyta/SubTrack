@@ -1,2 +1,1 @@
-// Cypress custom commands
-/// <reference types="cypress" />
+export {};

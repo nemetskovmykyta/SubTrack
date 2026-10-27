@@ -6,7 +6,6 @@ import { CategoryDonutChart, NextChargesList } from "../features/analytics";
 import { useSubscriptions } from "../hooks";
 import styles from "./DashboardPage.module.css";
 
-// Re-export for backwards compatibility
 export { DashboardNav } from "../components/layout";
 export { Icon } from "../components/icons";
 
@@ -43,20 +42,17 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* 3 Summary Metrics */}
         <SummaryGrid
           monthlyTotal={monthlyTotal}
           yearlyTotal={yearlyTotal}
           activeCount={activeCount}
         />
 
-        {/* Charts & Next Charges */}
         <div className={styles.middleGrid}>
           <CategoryDonutChart totalAmount={monthlyTotal} />
           <NextChargesList />
         </div>
 
-        {/* Subscriptions Table */}
         <SubscriptionTable
           subscriptions={filteredSubscriptions}
           searchQuery={searchQuery}
@@ -68,7 +64,6 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Add Subscription Modal */}
       <AddSubscriptionModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

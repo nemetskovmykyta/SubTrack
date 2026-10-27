@@ -15,7 +15,7 @@ describe("calendar utils", () => {
   });
 
   it("generateCalendarDays returns 35 grid cells", () => {
-    const days = generateCalendarDays(2026, 9); // October 2026
+    const days = generateCalendarDays(2026, 9);
     expect(days).toHaveLength(35);
     expect(days.some((d) => d.isCurrentMonth && d.day === 1)).toBe(true);
   });

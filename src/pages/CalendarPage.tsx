@@ -27,7 +27,7 @@ export default function CalendarPage() {
   const [selectedCategories, setSelectedCategories] =
     useState<CalendarCategory[]>(CALENDAR_CATEGORIES);
 
-  const displayDate = new Date(2026, 9 + monthOffset, 1); // October 2026 base
+  const displayDate = new Date(2026, 9 + monthOffset, 1);
   const year = displayDate.getFullYear();
   const month = displayDate.getMonth();
   const monthName = MONTH_NAMES[month];

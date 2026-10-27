@@ -88,7 +88,6 @@
   font-size: 11px;
 }
 
-/* Upcoming Panel */
 .upcomingPanel {
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-xl);
@@ -202,7 +201,6 @@
   font-weight: 700;
 }
 
-/* Category Filters */
 .categoryFilterPanel {
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-xl);

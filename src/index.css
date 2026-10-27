@@ -1,7 +1,6 @@
 @import "./styles/variables.css";
 @import "./styles/reset.css";
 
-/* Global Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -20,7 +19,6 @@
   background: #475569;
 }
 
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

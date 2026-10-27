@@ -197,7 +197,6 @@
   color: var(--color-text-dim);
 }
 
-/* List View */
 .calendarListView {
   display: flex;
   flex-direction: column;

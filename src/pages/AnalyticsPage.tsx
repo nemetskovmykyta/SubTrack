@@ -40,16 +40,13 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        {/* 3 Overview Metrics */}
         <AnalyticsMetrics />
 
-        {/* Charts Section */}
         <div className={styles.chartsGrid}>
           <SpendingBarChart />
           <CategoryBreakdownCard />
         </div>
 
-        {/* What-If Savings Calculator */}
         <SavingsSimulator />
       </div>
     </main>

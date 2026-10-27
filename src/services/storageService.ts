@@ -1,6 +1,3 @@
-/**
- * Storage service providing a safe abstraction over window.localStorage
- */
 export const storageService = {
   get<T>(key: string, fallback: T): T {
     try {

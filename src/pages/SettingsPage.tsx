@@ -97,7 +97,6 @@ export default function SettingsPage() {
           </aside>
 
           <form className={styles.settingsForm} onSubmit={saveSettings}>
-            {/* Profile Section */}
             <section className={styles.settingsSection} id="profile">
               <div className={styles.sectionHeading}>
                 <span className={`${styles.metricIcon} ${styles.indigo}`}>
@@ -132,7 +131,6 @@ export default function SettingsPage() {
               </div>
             </section>
 
-            {/* Preferences Section */}
             <section className={styles.settingsSection} id="preferences">
               <div className={styles.sectionHeading}>
                 <span className={`${styles.metricIcon} ${styles.blue}`}>
@@ -182,7 +180,6 @@ export default function SettingsPage() {
               </div>
             </section>
 
-            {/* Notifications Section */}
             <section className={styles.settingsSection} id="notifications">
               <div className={styles.sectionHeading}>
                 <span className={`${styles.metricIcon} ${styles.amber}`}>
@@ -232,7 +229,6 @@ export default function SettingsPage() {
               </div>
             </section>
 
-            {/* Action Bar */}
             <div className={styles.actionBar}>
               <p>
                 {saved

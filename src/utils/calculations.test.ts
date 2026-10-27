@@ -43,7 +43,6 @@ describe("calculations utils", () => {
   ];
 
   it("calculateMonthlyTotal calculates monthly total including prorated yearly subscriptions", () => {
-    // 200 + Math.round(12000 / 12) = 200 + 1000 = 1200
     expect(calculateMonthlyTotal(mockSubscriptions)).toBe(1200);
   });
 

@@ -17,9 +17,6 @@ export const MONTH_LABELS = [
   "December",
 ];
 
-/**
- * Generates calendar grid cells (typically 35 cells) for the given year and month.
- */
 export function generateCalendarDays(year: number, month: number): CalendarDay[] {
   const firstDay = new Date(year, month, 1);
   const mondayOffset = (firstDay.getDay() + 6) % 7;
