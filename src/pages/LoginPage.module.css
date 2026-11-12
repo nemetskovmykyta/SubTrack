@@ -502,6 +502,17 @@
   text-align: center;
 }
 
+.errorMessage {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(251, 113, 133, 0.12);
+  border: 1px solid rgba(251, 113, 133, 0.3);
+  color: var(--color-rose);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 @media (max-width: 640px) {
   .appShell {
     padding: 20px 18px 16px;

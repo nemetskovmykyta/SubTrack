@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "../../icons";
-import { useClickOutside } from "../../../hooks";
+import { useAuth, useClickOutside } from "../../../hooks";
 import { Modal } from "../../ui";
 import styles from "./ProfileDropdown.module.css";
 
@@ -12,12 +12,13 @@ export interface ProfileDropdownProps {
   initials?: string;
 }
 
-export function ProfileDropdown({
-  name = "Mykyta Nemetskov",
-  email = "mykyta@example.com",
-  plan = "Pro Plan",
-  initials = "MN",
-}: ProfileDropdownProps) {
+export function ProfileDropdown({ name, email, plan, initials }: ProfileDropdownProps) {
+  const { user, logout } = useAuth();
+  const displayName = name ?? user?.name ?? "Mykyta Nemetskov";
+  const displayEmail = email ?? user?.email ?? "mykyta@example.com";
+  const displayPlan = plan ?? user?.plan ?? "Pro Plan";
+  const displayInitials = initials ?? user?.avatarInitials ?? "MN";
+
   const [profileOpen, setProfileOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -30,8 +31,9 @@ export function ProfileDropdown({
     setLogoutOpen(true);
   };
 
-  const confirmLogout = () => {
+  const confirmLogout = async () => {
     setLogoutOpen(false);
+    await logout();
     navigate("/login");
   };
 
@@ -45,9 +47,9 @@ export function ProfileDropdown({
           aria-haspopup="menu"
           onClick={() => setProfileOpen((prev) => !prev)}
         >
-          <span className={styles.avatar}>{initials}</span>
+          <span className={styles.avatar}>{displayInitials}</span>
           <span className={styles.profileCopy}>
-            <strong>{name}</strong>
+            <strong>{displayName}</strong>
             <small>Personal account</small>
           </span>
           <Icon name="chevron" />
@@ -56,12 +58,12 @@ export function ProfileDropdown({
         {profileOpen && (
           <div className={styles.profileDropdown} role="menu">
             <div className={styles.profileDropdownHeader}>
-              <span className={styles.avatar}>{initials}</span>
+              <span className={styles.avatar}>{displayInitials}</span>
               <div>
-                <strong>{name}</strong>
-                <small>{email}</small>
+                <strong>{displayName}</strong>
+                <small>{displayEmail}</small>
               </div>
-              <span className={styles.proPlanBadge}>{plan}</span>
+              <span className={styles.proPlanBadge}>{displayPlan}</span>
             </div>
             <div className={styles.profileMenuItems}>
               <Link role="menuitem" to="/settings" onClick={() => setProfileOpen(false)}>

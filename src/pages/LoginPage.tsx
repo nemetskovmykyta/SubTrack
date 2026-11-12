@@ -1,20 +1,73 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrandMark, MailIcon, LockIcon, EyeIcon, GoogleIcon, AppleIcon } from "../components/icons";
+import { useAuth } from "../hooks";
 import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [localError, setLocalError] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    navigate("/dashboard");
+  const navigate = useNavigate();
+  const { login, register, isLoading, error, clearError } = useAuth();
+
+  const handleTabChange = (tab: "login" | "register") => {
+    setActiveTab(tab);
+    setLocalError("");
+    clearError();
   };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setLocalError("");
+    clearError();
+
+    if (!email.trim() || !password) {
+      setLocalError("Please enter your email and password");
+      return;
+    }
+
+    if (activeTab === "register") {
+      if (!name.trim()) {
+        setLocalError("Please enter your name");
+        return;
+      }
+      const success = await register({
+        name: name.trim(),
+        email: email.trim(),
+        password,
+      });
+      if (success) {
+        navigate("/dashboard");
+      }
+    } else {
+      const success = await login({
+        email: email.trim(),
+        password,
+        rememberMe,
+      });
+      if (success) {
+        navigate("/dashboard");
+      }
+    }
+  };
+
+  const handleOAuthLogin = async (provider: "google" | "apple") => {
+    const success = await login({
+      email: `${provider}.user@example.com`,
+      password: "oauth-session-token",
+    });
+    if (success) {
+      navigate("/dashboard");
+    }
+  };
+
+  const displayedError = localError || error;
 
   return (
     <div className={styles.appShell}>
@@ -48,7 +101,7 @@ export default function LoginPage() {
               role="tab"
               aria-selected={activeTab === "login"}
               className={`${styles.tabBtn} ${activeTab === "login" ? styles.active : ""}`}
-              onClick={() => setActiveTab("login")}
+              onClick={() => handleTabChange("login")}
             >
               Sign In
             </button>
@@ -57,7 +110,7 @@ export default function LoginPage() {
               role="tab"
               aria-selected={activeTab === "register"}
               className={`${styles.tabBtn} ${activeTab === "register" ? styles.active : ""}`}
-              onClick={() => setActiveTab("register")}
+              onClick={() => handleTabChange("register")}
             >
               Create Account
             </button>
@@ -75,7 +128,27 @@ export default function LoginPage() {
             </p>
           </div>
 
+          {displayedError && <div className={styles.errorMessage}>{displayedError}</div>}
+
           <form onSubmit={handleSubmit}>
+            {activeTab === "register" && (
+              <>
+                <label className={styles.fieldLabel} htmlFor="name-input">
+                  Full Name
+                </label>
+                <div className={styles.inputShell} style={{ marginBottom: "16px" }}>
+                  <input
+                    id="name-input"
+                    type="text"
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              </>
+            )}
+
             <label className={styles.fieldLabel} htmlFor="email-input">
               Email Address
             </label>
@@ -133,8 +206,12 @@ export default function LoginPage() {
               </a>
             </div>
 
-            <button type="submit" className={styles.primaryButton}>
-              {activeTab === "login" ? "Sign In to Dashboard" : "Create Account"}
+            <button type="submit" className={styles.primaryButton} disabled={isLoading}>
+              {isLoading
+                ? "Processing..."
+                : activeTab === "login"
+                  ? "Sign In to Dashboard"
+                  : "Create Account"}
               <span>→</span>
             </button>
 
@@ -148,14 +225,16 @@ export default function LoginPage() {
               <button
                 type="button"
                 className={styles.socialBtn}
-                onClick={() => navigate("/dashboard")}
+                onClick={() => handleOAuthLogin("google")}
+                disabled={isLoading}
               >
                 <GoogleIcon /> Google
               </button>
               <button
                 type="button"
                 className={styles.socialBtn}
-                onClick={() => navigate("/dashboard")}
+                onClick={() => handleOAuthLogin("apple")}
+                disabled={isLoading}
               >
                 <AppleIcon /> Apple
               </button>

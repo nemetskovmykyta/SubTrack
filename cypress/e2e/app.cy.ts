@@ -5,6 +5,8 @@ describe("SubTrack Application E2E Flow", () => {
     cy.contains("Sign In").should("be.visible");
     cy.contains("Sign In to Dashboard").should("be.visible");
 
+    cy.get("#email-input").type("alex@example.com");
+    cy.get("#password-input").type("password123");
     cy.get("button[type='submit']").click();
     cy.url().should("include", "/dashboard");
   });

@@ -1,8 +1,9 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { DashboardNav } from "../components/layout";
 import { Icon } from "../components/icons";
 import { Toggle } from "../components/ui";
 import { IconName } from "../types";
+import { useAuth, useSettings } from "../hooks";
 import styles from "./SettingsPage.module.css";
 
 interface SettingsNavItem {
@@ -20,11 +21,37 @@ const SETTINGS_NAVIGATION: SettingsNavItem[] = [
 ];
 
 export default function SettingsPage() {
+  const { user, updateProfile } = useAuth();
+  const { settings, updateSettings, isSaving } = useSettings();
+
   const [activeSection, setActiveSection] = useState("profile");
-  const [autoConvert, setAutoConvert] = useState(true);
-  const [emailReminders, setEmailReminders] = useState(true);
-  const [telegramNotifications, setTelegramNotifications] = useState(true);
+  const [fullName, setFullName] = useState(user?.name || "Mykyta Nemetskov");
+  const [emailAddress, setEmailAddress] = useState(user?.email || "mykyta@example.com");
+  const [currency, setCurrency] = useState(settings.currency || "UAH");
+  const [language, setLanguage] = useState(settings.language || "UK-EN");
+  const [autoConvert, setAutoConvert] = useState(settings.autoConvert);
+  const [emailReminders, setEmailReminders] = useState(settings.emailReminders);
+  const [telegramNotifications, setTelegramNotifications] = useState(
+    settings.telegramNotifications
+  );
+  const [reminderDays, setReminderDays] = useState(settings.reminderDaysBefore || 1);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setFullName(user.name);
+      setEmailAddress(user.email);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    setCurrency(settings.currency);
+    setLanguage(settings.language);
+    setAutoConvert(settings.autoConvert);
+    setEmailReminders(settings.emailReminders);
+    setTelegramNotifications(settings.telegramNotifications);
+    setReminderDays(settings.reminderDaysBefore);
+  }, [settings]);
 
   const goToSection = (target: string) => {
     setActiveSection(target);
@@ -34,11 +61,28 @@ export default function SettingsPage() {
     });
   };
 
-  const saveSettings = (event: FormEvent<HTMLFormElement>) => {
+  const saveSettings = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    await updateProfile({
+      name: fullName,
+      email: emailAddress,
+    });
+
+    await updateSettings({
+      currency,
+      language,
+      autoConvert,
+      emailReminders,
+      telegramNotifications,
+      reminderDaysBefore: Number(reminderDays),
+    });
+
     setSaved(true);
     window.setTimeout(() => setSaved(false), 2200);
   };
+
+  const initials = user?.avatarInitials || "MN";
 
   return (
     <main className={styles.settingsShell}>
@@ -52,9 +96,9 @@ export default function SettingsPage() {
             <p>Manage your profile, preferences, and payment notifications.</p>
           </div>
           <div className={styles.accountChip}>
-            <span className={styles.avatar}>MN</span>
+            <span className={styles.avatar}>{initials}</span>
             <div>
-              <strong>Mykyta Nemetskov</strong>
+              <strong>{user?.name || "Mykyta Nemetskov"}</strong>
               <small>Personal account</small>
             </div>
           </div>
@@ -109,9 +153,9 @@ export default function SettingsPage() {
               </div>
 
               <div className={styles.avatarSetting}>
-                <span className={styles.largeAvatar}>MN</span>
+                <span className={styles.largeAvatar}>{initials}</span>
                 <div className={styles.avatarInfo}>
-                  <strong>Mykyta Nemetskov</strong>
+                  <strong>{user?.name || "Mykyta Nemetskov"}</strong>
                   <small>JPG, GIF or PNG. Max size 2 MB.</small>
                 </div>
                 <button type="button" className={styles.changeAvatarBtn}>
@@ -122,11 +166,21 @@ export default function SettingsPage() {
               <div className={styles.fieldsGrid}>
                 <label className={styles.formGroup}>
                   <span>Full Name</span>
-                  <input type="text" defaultValue="Mykyta Nemetskov" />
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                  />
                 </label>
                 <label className={styles.formGroup}>
                   <span>Email Address</span>
-                  <input type="email" defaultValue="mykyta@example.com" />
+                  <input
+                    type="email"
+                    value={emailAddress}
+                    onChange={(e) => setEmailAddress(e.target.value)}
+                    required
+                  />
                 </label>
               </div>
             </section>
@@ -146,7 +200,7 @@ export default function SettingsPage() {
                 <label className={styles.formGroup}>
                   <span>Primary Display Currency</span>
                   <div className={styles.selectWrap}>
-                    <select defaultValue="UAH">
+                    <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
                       <option value="UAH">UAH (Ukrainian Hryvnia)</option>
                       <option value="USD">USD (US Dollar)</option>
                       <option value="EUR">EUR (Euro)</option>
@@ -157,7 +211,7 @@ export default function SettingsPage() {
                 <label className={styles.formGroup}>
                   <span>Language</span>
                   <div className={styles.selectWrap}>
-                    <select defaultValue="UK-EN">
+                    <select value={language} onChange={(e) => setLanguage(e.target.value)}>
                       <option value="UK-EN">Ukrainian / English</option>
                       <option value="UK">Ukrainian</option>
                       <option value="EN">English</option>
@@ -194,7 +248,7 @@ export default function SettingsPage() {
               <div className={styles.toggleRow}>
                 <div>
                   <strong>Email reminders before upcoming payments</strong>
-                  <small>Receive reminders at mykyta@example.com.</small>
+                  <small>Receive reminders at {emailAddress}.</small>
                 </div>
                 <Toggle
                   checked={emailReminders}
@@ -206,7 +260,10 @@ export default function SettingsPage() {
               <div className={styles.formGroup} style={{ marginTop: "16px" }}>
                 <span>Remind me</span>
                 <div className={styles.selectWrap}>
-                  <select defaultValue="1">
+                  <select
+                    value={reminderDays}
+                    onChange={(e) => setReminderDays(Number(e.target.value))}
+                  >
                     <option value="1">1 day before payment</option>
                     <option value="3">3 days before payment</option>
                     <option value="7">7 days before payment</option>
@@ -239,8 +296,12 @@ export default function SettingsPage() {
                 <button className={styles.cancelBtn} type="reset">
                   Cancel
                 </button>
-                <button className={`${styles.saveBtn} ${saved ? styles.saved : ""}`} type="submit">
-                  {saved ? "Changes Saved" : "Save Changes"}
+                <button
+                  className={`${styles.saveBtn} ${saved ? styles.saved : ""}`}
+                  type="submit"
+                  disabled={isSaving}
+                >
+                  {isSaving ? "Saving..." : saved ? "Changes Saved" : "Save Changes"}
                 </button>
               </div>
             </div>
