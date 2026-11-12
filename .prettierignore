@@ -1,0 +1,9 @@
+dist
+node_modules
+coverage
+.idea
+*.log
+pnpm-lock.yaml
+package-lock.json
+cypress/screenshots
+cypress/videos

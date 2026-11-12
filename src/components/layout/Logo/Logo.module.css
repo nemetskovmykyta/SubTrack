@@ -1,0 +1,35 @@
+.dashBrand {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+  gap: 10px;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.dashBrand:hover {
+  opacity: 0.9;
+}
+
+.brandIcon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  border-radius: 10px;
+  color: var(--color-primary-lighter);
+  background: var(--gradient-accent-mark);
+}
+
+.brandIcon svg {
+  width: 20px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

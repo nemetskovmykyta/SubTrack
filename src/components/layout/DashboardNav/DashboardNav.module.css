@@ -1,0 +1,150 @@
+.dashboardNav {
+  position: sticky;
+  z-index: 40;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  height: 72px;
+  align-items: center;
+  padding: 0 42px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(20px);
+}
+
+.navLinks {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 34px;
+}
+
+.navLink {
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  color: #7c8ca3;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.navLink:hover {
+  color: var(--color-text-secondary);
+}
+
+.navLink.active {
+  color: var(--color-text-primary);
+}
+
+.navLink.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--color-primary-light);
+  box-shadow: 0 0 12px var(--color-primary);
+  content: "";
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+}
+
+.notificationButton {
+  position: relative;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  background: var(--color-bg-surface-translucent);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.notificationButton:hover {
+  border-color: var(--border-medium);
+  color: var(--color-text-primary);
+}
+
+.notificationButton svg {
+  width: 16px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--color-bg-base);
+  border-radius: var(--radius-full);
+  background: var(--color-rose);
+}
+
+.addSubscriptionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  border: 0;
+  border-radius: var(--radius-md);
+  padding: 0 16px;
+  color: white;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-button);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.addSubscriptionBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.addSubscriptionBtn span {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+@media (max-width: 900px) {
+  .dashboardNav {
+    padding: 0 20px;
+  }
+  .navLinks {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardNav {
+    grid-template-columns: 1fr auto;
+    height: auto;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .navLinks {
+    grid-column: 1 / -1;
+    justify-content: space-around;
+    height: 40px;
+  }
+}

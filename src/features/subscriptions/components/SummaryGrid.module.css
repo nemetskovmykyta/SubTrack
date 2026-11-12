@@ -1,0 +1,202 @@
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.summaryCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-card);
+  backdrop-filter: blur(16px);
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.4);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.summaryCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.cardLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.cardLabel p {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cardLabel button {
+  margin-left: auto;
+  color: var(--color-text-dim);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.cardLabel button:hover {
+  color: var(--color-text-primary);
+}
+
+.cardLabel svg {
+  width: 16px;
+  height: 16px;
+}
+
+.metricIcon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: var(--radius-md);
+}
+
+.metricIcon svg {
+  width: 16px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.indigo {
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.18);
+}
+
+.teal {
+  color: #5eead4;
+  background: rgba(20, 184, 166, 0.18);
+}
+
+.amber {
+  color: #fcd34d;
+  background: rgba(245, 158, 11, 0.18);
+}
+
+.summaryCard h2 {
+  font-size: 28px;
+  font-weight: 750;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  margin: 0 0 8px;
+}
+
+.summaryCard h2 span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  margin-left: 4px;
+}
+
+.metricNote {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-dim);
+}
+
+.positive {
+  color: #34d399;
+}
+
+.positive span {
+  font-weight: 700;
+}
+
+.metricNote em {
+  font-style: normal;
+  color: var(--color-text-faint);
+}
+
+.metricGlow {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-full);
+  filter: blur(50px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.metricGlow.indigo {
+  background: #6366f1;
+}
+
+.metricGlow.teal {
+  background: #14b8a6;
+}
+
+.metricGlow.amber {
+  background: #f59e0b;
+}
+
+.upcomingCard .cardLabel {
+  justify-content: space-between;
+}
+
+.urgentBadge {
+  margin-left: auto;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fcd34d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.upcomingValue {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.serviceLogo {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.netflix {
+  background: #e50914;
+  color: white;
+}
+
+.upcomingValue h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.upcomingValue p {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  margin: 2px 0 0;
+}
+
+@media (max-width: 960px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

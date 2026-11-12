@@ -1,0 +1,17 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-card);
+  backdrop-filter: blur(16px);
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.4);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  border-color: rgba(148, 163, 184, 0.25);
+}
