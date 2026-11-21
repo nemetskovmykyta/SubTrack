@@ -1,0 +1,29 @@
+{
+  "name": "SubTrack_Users",
+  "description": "Mockaroo schema for SubTrack users and profiles",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Row Number",
+      "formula": "'usr-' || this"
+    },
+    {
+      "name": "name",
+      "type": "Full Name"
+    },
+    {
+      "name": "email",
+      "type": "Email Address"
+    },
+    {
+      "name": "plan",
+      "type": "Custom List",
+      "values": ["Standard Plan", "Pro Plan", "Family Plan"]
+    },
+    {
+      "name": "avatarInitials",
+      "type": "Formula",
+      "value": "name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()"
+    }
+  ]
+}

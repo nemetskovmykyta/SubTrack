@@ -1,0 +1,83 @@
+{
+  "name": "SubTrack_Subscriptions",
+  "description": "Mockaroo schema for SubTrack subscriptions collection",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Row Number",
+      "formula": "'sub-' || this"
+    },
+    {
+      "name": "name",
+      "type": "Custom List",
+      "values": [
+        "Spotify",
+        "Netflix",
+        "YouTube Premium",
+        "ChatGPT Plus",
+        "iCloud",
+        "Patreon",
+        "SportLife",
+        "Megogo",
+        "GitHub Copilot",
+        "Duolingo Plus",
+        "Telegram Premium",
+        "Canva Pro",
+        "PlayStation Plus",
+        "Strava Summit"
+      ]
+    },
+    {
+      "name": "category",
+      "type": "Custom List",
+      "values": [
+        "Entertainment",
+        "Cloud Storage",
+        "Work",
+        "Sport",
+        "Donations",
+        "Utilities",
+        "Other"
+      ]
+    },
+    {
+      "name": "price",
+      "type": "Number",
+      "min": 50,
+      "max": 1200,
+      "decimals": 0
+    },
+    {
+      "name": "currency",
+      "type": "Constant",
+      "value": "UAH"
+    },
+    {
+      "name": "billingCycle",
+      "type": "Custom List",
+      "values": ["monthly", "yearly"]
+    },
+    {
+      "name": "nextPaymentDate",
+      "type": "Date",
+      "min": "2026-10-01",
+      "max": "2026-12-31",
+      "format": "%Y-%m-%d"
+    },
+    {
+      "name": "icon",
+      "type": "Custom List",
+      "values": ["spark", "sport", "cloud", "heart", "wallet"]
+    },
+    {
+      "name": "tone",
+      "type": "Custom List",
+      "values": ["indigo", "orange", "blue", "coral", "green", "purple"]
+    },
+    {
+      "name": "status",
+      "type": "Custom List",
+      "values": ["active", "active", "active", "paused", "canceled"]
+    }
+  ]
+}

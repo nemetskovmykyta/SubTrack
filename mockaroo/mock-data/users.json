@@ -1,0 +1,23 @@
+[
+  {
+    "id": "usr-1",
+    "name": "Mykyta Nemetskov",
+    "email": "mykyta@example.com",
+    "plan": "Pro Plan",
+    "avatarInitials": "MN"
+  },
+  {
+    "id": "usr-2",
+    "name": "Olena Kovalenko",
+    "email": "olena@example.com",
+    "plan": "Standard Plan",
+    "avatarInitials": "OK"
+  },
+  {
+    "id": "usr-3",
+    "name": "Bohdan Shevchenko",
+    "email": "bohdan@example.com",
+    "plan": "Family Plan",
+    "avatarInitials": "BS"
+  }
+]

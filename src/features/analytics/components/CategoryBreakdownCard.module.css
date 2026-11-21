@@ -1,0 +1,141 @@
+.analyticsDonutCard {
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-card);
+  backdrop-filter: blur(16px);
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.4);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.sectionTitle h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 4px;
+}
+
+.sectionTitle p {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.sectionTitle button {
+  color: var(--color-text-dim);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.sectionTitle button:hover {
+  color: var(--color-text-primary);
+}
+
+.sectionTitle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.analyticsDonutWrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.donutChart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 160px;
+  height: 160px;
+  border-radius: var(--radius-full);
+  background: conic-gradient(#8b5cf6 0% 45%, #3b82f6 45% 75%, #14b8a6 75% 100%);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.donutHole {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  border-radius: var(--radius-full);
+  background: #111b31;
+  text-align: center;
+}
+
+.donutHole strong {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.donutHole span {
+  font-size: 11px;
+  color: var(--color-text-dim);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.analyticsLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.purple {
+  background: #8b5cf6;
+}
+.blue {
+  background: #3b82f6;
+}
+.teal {
+  background: #14b8a6;
+}
+
+.legendItem p {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+}
+
+.legendItem strong {
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+
+.legendItem em {
+  font-style: normal;
+  color: var(--color-text-dim);
+  font-size: 12px;
+  margin-left: 6px;
+}

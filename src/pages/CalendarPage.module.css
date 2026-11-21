@@ -1,0 +1,98 @@
+.calendarShell {
+  min-height: 100vh;
+  color: var(--color-text-primary);
+  background:
+    radial-gradient(circle at 75% -10%, rgba(99, 102, 241, 0.1), transparent 30%),
+    var(--color-bg-base);
+}
+
+.calendarContent {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 42px 64px;
+}
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-primary-light);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heading h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  margin: 0 0 6px;
+}
+
+.heading p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.metaChip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-medium);
+  background: var(--color-bg-surface);
+}
+
+.metaIcon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-primary-lighter);
+  background: var(--gradient-accent-mark);
+}
+
+.metaIcon svg {
+  width: 18px;
+}
+
+.metaText strong {
+  display: block;
+  font-size: 13px;
+  color: var(--color-text-primary);
+}
+
+.metaText small {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-dim);
+}
+
+.calendarLayout {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .calendarContent {
+    padding: 24px 20px 48px;
+  }
+  .calendarLayout {
+    grid-template-columns: 1fr;
+  }
+}
