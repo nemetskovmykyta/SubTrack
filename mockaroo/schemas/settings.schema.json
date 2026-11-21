@@ -1,0 +1,35 @@
+{
+  "name": "SubTrack_Settings",
+  "description": "Mockaroo schema for user settings and preferences",
+  "fields": [
+    {
+      "name": "autoConvert",
+      "type": "Boolean"
+    },
+    {
+      "name": "emailReminders",
+      "type": "Boolean"
+    },
+    {
+      "name": "telegramNotifications",
+      "type": "Boolean"
+    },
+    {
+      "name": "currency",
+      "type": "Custom List",
+      "values": ["UAH", "USD", "EUR"]
+    },
+    {
+      "name": "language",
+      "type": "Custom List",
+      "values": ["Ukrainian / English", "Ukrainian", "English"]
+    },
+    {
+      "name": "reminderDaysBefore",
+      "type": "Number",
+      "min": 1,
+      "max": 7,
+      "decimals": 0
+    }
+  ]
+}

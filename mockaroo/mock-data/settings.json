@@ -1,0 +1,8 @@
+{
+  "autoConvert": true,
+  "emailReminders": true,
+  "telegramNotifications": true,
+  "currency": "UAH",
+  "language": "Ukrainian / English",
+  "reminderDaysBefore": 1
+}

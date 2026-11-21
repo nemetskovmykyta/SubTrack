@@ -1,6 +1,6 @@
 import { Subscription, UserProfile, UserSettings } from "../types";
 import { storageService } from "./storageService";
-import { INITIAL_SUBSCRIPTIONS } from "./subscriptionService";
+import { mockarooService } from "./mockarooService";
 
 const STORAGE_KEYS = {
   SUBSCRIPTIONS: "subtrack_subscriptions",
@@ -38,6 +38,7 @@ function jsonResponse(data: unknown, status = 200): Response {
     status,
     headers: {
       "Content-Type": "application/json",
+      "X-Powered-By": "Mockaroo-Mock-API",
     },
   });
 }
@@ -75,7 +76,8 @@ export function setupMockServer(): void {
       return jsonResponse({ message: "Not found" }, 404);
     }
 
-    await delay(120);
+    const config = mockarooService.getConfig();
+    await delay(config.delayMs);
 
     const method = (init?.method || "GET").toUpperCase();
     const url = new URL(urlString, "http://localhost:3000");
@@ -88,6 +90,18 @@ export function setupMockServer(): void {
       } catch {
         bodyData = {};
       }
+    }
+
+    if (pathname === "/api/mockaroo/status" && method === "GET") {
+      return jsonResponse(
+        {
+          provider: config.provider,
+          status: "connected",
+          baseUrl: config.baseUrl,
+          schemas: ["subscriptions", "users", "settings"],
+        },
+        200
+      );
     }
 
     if (pathname === "/api/auth/login" && method === "POST") {
@@ -138,6 +152,11 @@ export function setupMockServer(): void {
 
     if (pathname === "/api/auth/profile" && method === "PUT") {
       const current = storageService.get<UserProfile>(STORAGE_KEYS.USER, DEFAULT_USER);
+      const validation = mockarooService.validateUser(bodyData as Partial<UserProfile>);
+      if (!validation.valid) {
+        return jsonResponse({ message: validation.error }, 400);
+      }
+
       const updated: UserProfile = {
         ...current,
         name: typeof bodyData.name === "string" ? bodyData.name : current.name,
@@ -157,20 +176,23 @@ export function setupMockServer(): void {
     if (pathname === "/api/subscriptions" && method === "GET") {
       const all = storageService.get<Subscription[]>(
         STORAGE_KEYS.SUBSCRIPTIONS,
-        INITIAL_SUBSCRIPTIONS
+        mockarooService.getSeedSubscriptions()
       );
       const category = url.searchParams.get("category");
-      const search = url.searchParams.get("search")?.toLowerCase();
+      const search = url.searchParams.get("search");
+      const status = url.searchParams.get("status");
+      const sort = url.searchParams.get("sort") as "price" | "name" | "nextPaymentDate" | null;
+      const order = url.searchParams.get("order") as "asc" | "desc" | null;
+      const limit = url.searchParams.get("limit") ? Number(url.searchParams.get("limit")) : null;
 
-      let filtered = [...all];
-      if (category && category !== "all") {
-        filtered = filtered.filter((s) => s.category === category);
-      }
-      if (search) {
-        filtered = filtered.filter(
-          (s) => s.name.toLowerCase().includes(search) || s.category.toLowerCase().includes(search)
-        );
-      }
+      const filtered = mockarooService.filterSubscriptions(all, {
+        category,
+        search,
+        status,
+        sort,
+        order,
+        limit,
+      });
 
       return jsonResponse(filtered, 200);
     }
@@ -178,14 +200,15 @@ export function setupMockServer(): void {
     if (pathname === "/api/subscriptions" && method === "POST") {
       const all = storageService.get<Subscription[]>(
         STORAGE_KEYS.SUBSCRIPTIONS,
-        INITIAL_SUBSCRIPTIONS
+        mockarooService.getSeedSubscriptions()
       );
-      const name = String(bodyData.name || "").trim();
-      const price = Number(bodyData.price);
-
-      if (!name || isNaN(price) || price <= 0) {
-        return jsonResponse({ message: "Invalid subscription data" }, 400);
+      const validation = mockarooService.validateSubscription(bodyData as Partial<Subscription>);
+      if (!validation.valid) {
+        return jsonResponse({ message: validation.error || "Invalid subscription data" }, 400);
       }
+
+      const name = String(bodyData.name).trim();
+      const price = Number(bodyData.price);
 
       const newSub: Subscription = {
         id: `sub-${Date.now()}`,
@@ -212,7 +235,7 @@ export function setupMockServer(): void {
       const id = subIdMatch[1];
       const all = storageService.get<Subscription[]>(
         STORAGE_KEYS.SUBSCRIPTIONS,
-        INITIAL_SUBSCRIPTIONS
+        mockarooService.getSeedSubscriptions()
       );
 
       if (method === "PUT" || method === "PATCH") {
@@ -251,7 +274,7 @@ export function setupMockServer(): void {
     if (pathname === "/api/analytics" && method === "GET") {
       const all = storageService.get<Subscription[]>(
         STORAGE_KEYS.SUBSCRIPTIONS,
-        INITIAL_SUBSCRIPTIONS
+        mockarooService.getSeedSubscriptions()
       );
       const active = all.filter((s) => s.status === "active");
 
